@@ -5,19 +5,27 @@
 [Download dependencies](https://github.com/ShrikeBin/ChineseCheckers/releases/download/dependencies/lib.zip)
 **Unzip in the project root directory to use**
 
-
 ## Screenshots
 
 <p align="center">
-  <img src="data/sc1.png" width="25%" />
-  <img src="data/sc6.png" width="25%" />
+  <img src="data/sc1.png" width="28%" />
+  <img src="data/sc6.png" width="28%" />
 </p>
 
 <p align="center">
-  <img src="data/sc2.png" width="25%" />
-  <img src="data/sc3.png" width="25%" />
-  <img src="data/sc4.png" width="25%" />
-  <img src="data/sc5.png" width="25%" />
+  <img src="data/sc2.png" width="33%" />
+</p>
+
+<p align="center">
+  <img src="data/sc3.png" width="33%" />
+</p>
+
+<p align="center">
+  <img src="data/sc4.png" width="33%" />
+</p>
+
+<p align="center">
+  <img src="data/sc5.png" width="33%" />
 </p>
 
 
