@@ -13,18 +13,11 @@
 </p>
 
 <p align="center">
-  <img src="data/sc2.png" width="33%" />
+  <img src="data/sc2.png" width="40%" />
 </p>
 
 <p align="center">
   <img src="data/sc3.png" width="33%" />
-</p>
-
-<p align="center">
-  <img src="data/sc4.png" width="33%" />
-</p>
-
-<p align="center">
   <img src="data/sc5.png" width="33%" />
 </p>
 
