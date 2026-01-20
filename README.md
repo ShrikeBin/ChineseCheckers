@@ -7,17 +7,19 @@
 
 
 ## Screenshots
-|------------------------|------------------------|
-|![](data/sc1.png)|![](data/sc6.png)|
-|------------------------|
-|![](data/sc2.png)|
-|------------------------|
-|![](data/sc3.png)|
-|------------------------|
-|![](data/sc4.png)|
-|------------------------|
-|![](data/sc5.png)|
-|------------------------|
+
+<p align="center">
+  <img src="data/sc1.png" width="25%" />
+  <img src="data/sc6.png" width="25%" />
+</p>
+
+<p align="center">
+  <img src="data/sc2.png" width="25%" />
+  <img src="data/sc3.png" width="25%" />
+  <img src="data/sc4.png" width="25%" />
+  <img src="data/sc5.png" width="25%" />
+</p>
+
 
 
 ## Build and run project
