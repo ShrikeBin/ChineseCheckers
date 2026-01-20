@@ -1,71 +1,97 @@
 # Chinese Checkers:
 
-## [Dependencies](https://github.com/nskowron/ChineseCheckers/releases/tag/1.1.0)
-[Download dependencies](https://github.com/nskowron/ChineseCheckers/releases/download/1.1.0/lib.zip)
+*A multi-threaded client–server game with a full GUI, supporting two distinct game modes, local multiplayer or bot play for up to 6 players, and a replay mode with automatic game recording.*
+
+[Download dependencies](https://github.com/ShrikeBin/ChineseCheckers/releases/download/dependencies/lib.zip)
+**Unzip in the project root directory to use**
+
+
+## Screenshots
+|------------------------|------------------------|
+|![](data/sc1.png)|![](data/sc6.png)|
+|------------------------|
+|![](data/sc2.png)|
+|------------------------|
+|![](data/sc3.png)|
+|------------------------|
+|![](data/sc4.png)|
+|------------------------|
+|![](data/sc5.png)|
+|------------------------|
+
 
 ## Build and run project
-- `make`
-- `make runS` - to run server
-    - `make runS` - to run BASIC variant
-    - `make runS ARGS="OOC"`  - to run Order Out of Chaos variant
-    - `make runS ARGS="TEST"` - to run special test variant
+- `make` - build project
+- `make runServer` - to run server
+    - `make runServer` - to run BASIC variant
+    - `make runServer ARGS="OOC"`  - to run Order Out of Chaos variant
+    - `make runServer ARGS="TEST"` - to run special test variant
 - During server runtime:
     - `ADD_BOT` - adds a bot
-- `make runC` - to run client
-    - `make runCR` - to run resizable client (compatibility)
-- `make runRep ARGS="<filepath>"` - to run replay mode
+- `make runClient` - to run client
+    - `make runClientResize` - to run resizable client (compatibility for small displays)
+- `make runReplay ARGS="<filepath>"` - to run replay mode
 
-## Nel:
-- Responsible for:
-    - Server Structure
-    - Handling Clients
-    - Game Logic
+## Project Structure
 
-- Quick Description of Main Classes:
-    - CheckersServer - Controlls the server, handles connections of Clients, assignes them a Thread with a handler
-    - ClientHandler - Manages communication with each client, run 1:1 for client in different Thread in the Server
-    - Game Classes:
-        - Game - Controlls the course of the game
-        - Piece - represents a piece on board
-        - Node - represents a place on a board (Board is a graph of Nodes)
-        - GameAssetsFactory - Factory creating diffrent game sets depending on Variants
-        - Game Interfaces:
-            - IBoard - Interface for Board for different game Variants
-            - IMoveChecker - Interface for checking validity of Moves
-            - GameAssetsBuilder - Interface that combines Board and MoveChecker w/ getters
-    - RequestRunnable - Expanded Runnable Interface
-    - Server Player - Holds Player Data
-
-- Quick Description of Util Classes:
-    - Condition - Boolean wrapper for Synchronization
-    - IntList - Helper for List easier methods invocation (get(), equals())
-    - IntMap - Helper for Map easier methods invocation (get(), equals())
-
-
-## Jan:
-- Responsible for:
-    - GUI
-    - Client communication w/ Server
-
-- Quick Description of Main Classes:
-    - BoardGridPane - Generates a grid, in Serever replaced by reading `./data/star.json`
-    - CheckersClientApp - Main App that runs GUI
-    - GameRequestMediator - Co-Dependent with GameUIController,  a server listener that changes the GUI depending on received Requests
-    - GameUIController - Co-Dependent with GameRequestMediator, interprets what is happening on GUI and sends requests to Server using GameRequestMediator
-    - GraphicNode - class representing a place on board
-    - WelcomeUI - Creator of WAITING ROOM w/ basic controll functionalities
-    - GameUI - Creator of GAME ROOM w/ basic controll functionalities
-
-- Quick Description of Util Classes:
-    - Pair (DEPRECATED)
-
-
-### Co-responsible:
-- Make this work
-- Quick Description of Classes:
-    - ColorTranslator - Helper to Serialize javaFX's Color
-    - Request - Main request class containing data as Object: 
-        - Move - Move on a board presented as BeginID and EndID
-        - Player - Player information: Color and ID
-        - GameState - Current board, if someone Won, and current Turn
-
+```
+ChineseCheckers/ 
+│
+├── client/
+│   ├── BoardGridPane.java                 # Generates board grid (server uses data/star.json instead)
+│   ├── BoardUI.java                       # Visual board wrapper and UI utilities
+│   ├── CheckersClientApp.java             # Main client application entry point (GUI launcher)
+│   ├── GameRequestMediator.java           # Server listener; updates GUI based on incoming requests
+│   ├── GameUiController.java              # Interprets GUI actions and sends requests via mediator
+│   ├── GameUI.java                        # Game room UI (active match controls & layout)
+│   ├── GraphicNode.java                   # Visual representation of a board node
+│   └── WelcomeUI.java                     # Waiting room UI with basic control functionality
+├── data/
+│   └── ...                                # Images, Logos and default board configuration
+├── lib/
+│   └── ...                                # External libraries and dependencies     
+├── memento/
+│   ├── Recorder.java                      # Records moves and game states
+│   └── SavedMove.java                     # Immutable snapshot of a single move
+├── replay/
+│   ├── ListKeyDeserializer.java           # Custom deserializer for replay data
+│   ├── RecordReader.java                  # Reads and plays visually saved games
+│   └── ReplayApp.java                     # Replay application entry point
+├── server/
+│   ├── bots/
+│   │   └── ClosestMoveBot.java            # Bot choosing the nearest valid move
+│   ├── game/
+│   │   ├── basic/                         # Default variant
+│   │   │   ├── Board.java                 # Concrete board implementation (graph of Nodes)
+│   │   │   ├── Builder.java               # Builds board + move checker for basic variant
+│   │   │   └── MoveChecker.java           # Validates moves according to basic rules
+│   │   ├── ooc/                           # Alternative Order Out of Chaos variant
+│   │   │   ├── OOCBoard.java              
+│   │   │   └── OOCBuilder.java            
+│   │   ├── GameAssetsBuilder.java         # Interface combining Board and MoveChecker (getters)
+│   │   ├── GameAssetsFactory.java         # Factory creating game assets for different variants
+│   │   ├── Game.java                      # Controls game flow, turns, and win conditions
+│   │   ├── IBoard.java                    # Board interface for variant-independent logic
+│   │   ├── IMoveChecker.java              # Interface for validating move legality
+│   │   ├── Node.java                      # Represents a position on the board graph
+│   │   ├── Piece.java                     # Represents a game piece owned by a player
+│   │   └── test/                          # Test folder
+│   ├── CheckersServer.java                # Main server controller; accepts clients, manages threads
+│   ├── ClientHandler.java                 # Per-client communication handler (1:1 thread with client)
+│   ├── RequestRunnable.java               # Extended Runnable for request-based execution
+│   └── ServerPlayer.java                  # Server-side player model (ID, color, state)
+├── shared/                                
+│   ├── ColorTranslator.java               # Serializes JavaFX Color
+│   ├── GameState.java                     # Current board state, turn, and win condition
+│   ├── Move.java                          # Move defined by BeginID and EndID
+│   ├── Player.java                        # Player identity and color
+│   └── Request.java                       # Generic request wrapper containing Move / Player / GameState
+├── utils/
+│   ├── Condition.java                     # Boolean wrapper for thread synchronization
+│   ├── IntList.java                       # List helper with simplified access and equality
+│   ├── IntMap.java                        # Map helper with simplified access and equality
+│   └── Pair.java                          # Generic pair utility [DEPRECATED]
+├── game_updates.json                      # Serialized game replay (that is the default save name of the game)
+├── Makefile                               # Build and run automation
+└── README.md                              # Project documentation
+```

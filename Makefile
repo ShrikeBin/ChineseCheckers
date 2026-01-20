@@ -28,22 +28,22 @@ clean:
 	rm -rf $(BIN_DIR)/utils/*.class
 	rm -rf $(BIN_DIR)/replay/*.class
 
-runS:
+runServer:
 	java --module-path $(JAVAFX_LIB):$(JACKSON_LIB):$(SPRING_LIB) \
 	     --add-modules javafx.controls,com.fasterxml.jackson.databind \
 	     -cp $(CLASS_PATH) server.CheckersServer $(ARGS)
 
-runC:
+runClient:
 	java --module-path $(JAVAFX_LIB) \
 	     --add-modules javafx.controls \
 	     -cp $(CLASS_PATH) client.CheckersClientApp
 
-runCR:
+runClientResize:
 	java --module-path $(JAVAFX_LIB) \
 	     --add-modules javafx.controls \
 	     -cp $(CLASS_PATH) client.CheckersClientApp resize
 
-runRep:
+runReplay:
 	java --module-path $(JAVAFX_LIB):$(JACKSON_LIB):$(SPRING_LIB) \
 	     --add-modules javafx.controls,com.fasterxml.jackson.databind \
 	     -cp $(CLASS_PATH) replay.ReplayApp $(ARGS)
