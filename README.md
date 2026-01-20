@@ -1,6 +1,6 @@
 # Chinese Checkers:
 
-*A multi-threaded client–server game with a full GUI, supporting two distinct game modes, local multiplayer or bot play for up to 6 players, and a replay mode with automatic game recording.*
+*A multi-threaded client–server game with a full GUI, supporting two distinct game modes, allowed move highlighting, local multiplayer or bot play for up to 6 players, and a replay mode with automatic game recording.*
 
 [Download dependencies](https://github.com/ShrikeBin/ChineseCheckers/releases/download/dependencies/lib.zip)
 **Unzip in the project root directory to use**
